@@ -103,3 +103,49 @@ exports.usersDeletePost = (req, res) => {
   usersStorage.deleteUser(req.params.id);
   res.redirect("/");
 };
+
+exports.searchGet = (req, res) => {
+  const { firstName, lastName, email } = req.query;
+
+  // Convert storage object to an array of user objects
+  const users = Object.values(usersStorage.storage);
+
+  // Match based on all three criteria
+  const allThreeMatch = users.find(
+    (user) =>
+      firstName === user.firstName &&
+      lastName === user.lastName &&
+      email === user.email
+  );
+
+  if (allThreeMatch) {
+    return res.render("searchResult", { user: allThreeMatch });
+  }
+
+  // Match based on any two criteria
+  const twoMatch = users.find(
+    (user) =>
+      (firstName === user.firstName && lastName === user.lastName) ||
+      (firstName === user.firstName && email === user.email) ||
+      (lastName === user.lastName && email === user.email)
+  );
+
+  if (twoMatch) {
+    return res.render("searchResult", { user: twoMatch });
+  }
+
+  // Match based on any one criterion
+  const oneMatch = users.find(
+    (user) =>
+      firstName === user.firstName ||
+      lastName === user.lastName ||
+      email === user.email
+  );
+
+  if (oneMatch) {
+    return res.render("searchResult", { user: oneMatch });
+  }
+
+  // No matches found
+  res.render("searchResult", { user: null });
+};

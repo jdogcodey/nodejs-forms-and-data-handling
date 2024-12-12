@@ -27,6 +27,15 @@
                     <% } %>
     </ul>
     <a href="/create">Create a user</a>
+    <form action="/search" method="GET">
+        <label for="firstName">First Name: </label>
+        <input type="text" name="firstName" id="firstName">
+        <label for="lastName">Last Name: </label>
+        <input type="text" name="lastName" id="lastName">
+        <label for="email">Email: </label>
+        <input type="email" name="email" id="email">
+        <button type="submit">Search</button>
+    </form>
 </body>
 
 </html>
