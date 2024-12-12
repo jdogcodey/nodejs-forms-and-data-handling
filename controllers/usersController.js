@@ -49,8 +49,8 @@ exports.usersCreatePost = [
         errors: errors.array(),
       });
     }
-    const { firstName, lastName } = req.body;
-    usersStorage.addUser({ firstName, lastName });
+    const { firstName, lastName, email, age, body } = req.body;
+    usersStorage.addUser({ firstName, lastName, email, age, body });
     res.redirect("/");
   },
 ];
@@ -88,8 +88,14 @@ exports.usersUpdatePost = [
         errors: errors.array(),
       });
     }
-    const { firstName, lastName } = req.body;
-    usersStorage.updateUser(req.params.id, { firstName, lastName });
+    const { firstName, lastName, email, age, bio } = req.body;
+    usersStorage.updateUser(req.params.id, {
+      firstName,
+      lastName,
+      email,
+      age,
+      bio,
+    });
     res.redirect("/");
   },
 ];
