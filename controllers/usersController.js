@@ -24,18 +24,17 @@ const validateUser = [
     .isEmail()
     .withMessage(`Must be an email of format "example@host.com"`),
   body("age")
-    .optional()
+    .optional({ checkFalsy: true })
     .trim()
     .isInt({ min: 18 })
-    .withMessage("Must be above 18")
+    .withMessage("Age must be above 18")
     .isInt({ max: 120 })
-    .withMessage("Must be below 120"),
+    .withMessage("Age must be below 120"),
   body("bio")
-    .optional()
+    .optional({ checkFalsy: true })
     .trim()
-    .isAlphanumeric()
     .isLength({ max: 200 })
-    .withMessage("Must be under 200 characters"),
+    .withMessage("Bio must be under 200 characters"),
 ];
 
 // We can pass an entire array of middleware validations to our controller.
